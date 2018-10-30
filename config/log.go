@@ -17,7 +17,7 @@ type LogInfo struct {
 func (c *ConfigInfo) SetLog(key string, Message string) error {
 	now := time.Now()
 	today := fmt.Sprintf("%2d-%2d-%2d", now.Year(), now.Month(), now.Day())
-	filepath := c.Local.Log.Path + "/" + today + ".log"
+	filepath := c.Local.Log.Path + "/" + key + today + ".log"
 	datetime := fmt.Sprintf("%2d-%2d-%2d %2d:%2d:%2d", now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second())
 	c.mux.Lock()
 	if _, err := os.Stat(c.Local.Log.Path); os.IsNotExist(err) {
@@ -33,6 +33,6 @@ func (c *ConfigInfo) SetLog(key string, Message string) error {
 	}
 	c.mux.Unlock()
 
-	_, err := core.WriteLine(filepath, "["+datetime+"]["+key+"]:"+Message)
+	_, err := core.WriteLine(filepath, "["+datetime+"]:"+Message)
 	return err
 }

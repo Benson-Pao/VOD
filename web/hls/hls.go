@@ -252,7 +252,7 @@ func (s *Server) handle(w http.ResponseWriter, r *http.Request) {
 		if _, err := os.Stat(m3u8File); os.IsNotExist(err) {
 			if _, err := os.Stat(sourceFile); os.IsNotExist(err) {
 				log.Println("Source File Not Found :", err)
-				s.Config.SetLog("Video Not Found", "Client IP->"+clientIP+",Request->"+s.IP.LocalAddr+r.URL.String()+"=>"+fmt.Sprint(err))
+				s.Config.SetLog("VideoNotFound", "Client IP->"+clientIP+","+r.URL.String()+"=>"+fmt.Sprint(err))
 
 				_, ok := s.vods[appKey]
 				if ok {
